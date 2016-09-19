@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Material Design fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- css -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/css/bootstrap-material-design.min.css" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/css/ripples.min.css" rel="stylesheet"/>
+        <link href="/css/styles.css" rel="stylesheet"/>
+        <!-- javascript -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBnCsbkbalaMmYSUS5K6cOWq_vhW7ppDU"></script>
+        <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/js/material.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap.material-design/0.5.10/js/ripples.min.js"></script>
+        <!-- Vue -->
+        <script src="https://cdn.jsdelivr.net/vue/1.0.24/vue.js"></script>
+        <!-- Firebase -->
+        <script src="https://gstatic.com/firebasejs/3.0.3/firebase.js"></script>
+        <!-- VueFire -->
+        <script src="https://cdn.jsdelivr.net/vuefire/1.2.1/vuefire.js"></script>
+        
+        <script src="/js/scripts.js"></script>
+        
+        <title>Cool Rad Hip Map</title>
+    </head>
+    
+    <body>
+        <!--modal-->
+        <div class="modal fade" id="loginModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h3>Login to Cool Rad Hip Map</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form name="form-login">
+                            <div class="form-group label-floating">
+                                <label for="username" class="control-label">Username</label>
+                                <input type="text" class="form-control" name="username" minLength=6 maxLength=24 required>
+                                <p class="help-block">Enter your username with a length between 6 to 24 characters.</p>
+                            </div>
+                            <div class="form-group label-floating">
+                                <label for="password" class="control-label">Password</label>
+                                <input type="password" class="form-control" name="password" minLength=6 maxLength=24 required>
+                                <p class="help-block">Enter your password with a length between 6 to 24 characters.</p>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-raised">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="registerModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h3>Register with Cool Rad Hip Map</h3>
+                    </div>
+                    <div class="modal-body">
+                        <form name="form-register">
+                            <div class="form-group label-floating">
+                                <label for="username" class="control-label">Username</label>
+                                <input type="text" class="form-control" name="username" minLength=6 maxLength=24 required>
+                                <p class="help-block">Enter a username with a length between 6 to 24 characters.</p>
+                            </div>
+                            <div class="form-group label-floating">
+                                <label for="password" class="control-label">Password</label>
+                                <input type="password" class="form-control" name="password" minLength=6 maxLength=24 required>
+                                <p class="help-block">Enter a password with a length between 6 to 24 characters.</p>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-raised">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <div class="row" id="main-section">
+                <div class="col-md-2">
+                    <div class="row" id="box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Number of Checkins</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="checkins"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Health Rating</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="grade"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Reserve a table</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="reserve"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="box">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Foursquare Rating (out of 10)</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="rating"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="well">
+                            <div id="map-canvas"></div>
+                        </div>
+                        
+                        <div class="well well-sm" id="form-search">
+                            <form class="form-horizontal">
+                                <fieldset>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Restaurant" name="query"/>
+                                        <span class="input-group-btn">
+                                          <input type="submit" class="btn btn-primary btn-raised" value="Search" required/>
+                                        </span>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" id="fav">
+                    
+                    <div class="row right-side">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Selected Restaurant</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="info"></div>
+                                <a id="addButton" class="btn btn-primary btn-raised btn-block" disabled="true">
+                                    add 
+                                    <i class="material-icons">note_add</i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                	<div class="row text-center">
+                		<a class="btn btn-primary btn-raised" data-toggle="modal" data-target="#loginModal" v-show="anon">Login</a>
+                		<a class="btn btn-primary btn-raised" data-toggle="modal" data-target="#registerModal" v-show="anon">Register</a>
+                		<a class="btn btn-primary btn-raised" id="logout" v-show="!anon"> Logout </a>
+                	</div>
+                	
+                    <div class="row right-side">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> Favorites List </h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    <li v-for="item in list" track-by=".key">
+                                        <a @click="remove(item['.key'])" class="material-icons">delete</a>
+                                        {{ item[".value"] }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+    </body>
+</html>
